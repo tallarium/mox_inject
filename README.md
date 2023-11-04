@@ -1,12 +1,12 @@
 # MoxInject
 
-Maps between modules, the behaviours they implement, and the modules which
-are substituted for them in the test environment.
+Maps between modules, the behaviours they implement and their mocks (using Hammox or Mox) in tests:
 
 ```elixir
-use MoxInject do
-    alias MODULE, as: @ATTR
+use AnotherModule do
+    alias X, as: @x
     ...
+    @x.f()
 end
 ```
 
@@ -16,7 +16,7 @@ attribute.
 Example:
 
 ```elixir
-use MoxInject do
+use AnotherModule do
     alias Phoenix.LiveView.JS, as: @js
 end
 
