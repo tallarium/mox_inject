@@ -31,15 +31,6 @@ defmodule MoxInject do
       end
   """
 
-  @modules_with_behaviour_submodules Application.compile_env(
-                                       :mox_inject,
-                                       :modules_with_behaviour_submodules,
-                                       []
-                                     )
-  @explicit_behaviours Application.compile_env(:mox_inject, :explicit_behaviours, %{})
-
-  @test_dependencies Application.compile_env(:mox_inject, :test_dependencies?, false)
-
   defmacro __using__(do_block) do
     for alias_stmt <- block_lines(do_block) do
       {module, alias_name} = alias_opts(alias_stmt)
@@ -88,7 +79,7 @@ defmodule MoxInject do
   #
 
   defp actual_dependency(module) do
-    if @test_dependencies,
+    if Application.get_env(:mox_inject, :test_dependencies?, false),
       do: test_dependency(module),
       else: module
   end
@@ -106,8 +97,9 @@ defmodule MoxInject do
   @spec modules_and_behaviours :: [{module(), module()}]
   def modules_and_behaviours do
     Enum.concat(
-      @explicit_behaviours |> Map.to_list(),
-      @modules_with_behaviour_submodules |> Enum.map(&{&1, :in_submodule})
+      Application.get_env(:mox_inject, :explicit_behaviours, %{}) |> Map.to_list(),
+      Application.get_env(:mox_inject, :modules_with_behaviour_submodules, [])
+      |> Enum.map(&{&1, :in_submodule})
     )
     |> Enum.map(fn {module, behaviours} ->
       {module, normalize_behaviours(behaviours, module)}
