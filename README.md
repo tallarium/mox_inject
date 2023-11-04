@@ -25,7 +25,7 @@ end
 ...
 ```
 
-See [Configuration](#Configuration) for how to ensure the correct behaviour is located for a given module, so that a mocking library can be used.
+See [Examples](#Examples) and [Configuration](#Configuration) for how to ensure the correct behaviour is located for a given module, so that a mocking library can be used.
 
 To replace with mocks:
 
@@ -45,8 +45,12 @@ And in tests:
 
 ```elixir
 Phoenix.LiveView.JS.Mock
-|> expect(:
+|> expect(:hide, ...)
 ```
+
+## Examples
+
+Look at `lib/mox_inject/test_module.ex` and `test/mox_inject_test.exs`.
 
 ## Configuration
 
