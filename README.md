@@ -25,6 +25,8 @@ end
 ...
 ```
 
+See [Configuration](#Configuration) for how to ensure the correct behaviour is located for a given module, so that a mocking library can be used.
+
 To replace with mocks:
 
 ```elixir
@@ -39,10 +41,59 @@ and add a file `test/support/mocks.ex` - so that this file is compiled (and eval
 MoxInject.Test.setup_mocks(Mox) # or Hammox
 ```
 
+And in tests:
+
+```elixir
+Phoenix.LiveView.JS.Mock
+|> expect(:
+```
+
+## Configuration
+
+Either the module in question will have a `Behaviour` submodule, as a convention:
+
+```elixir
+defmodule X.Behaviour do
+    @callback f :: :ok
+end
+
+defmodule X do
+    @behaviour __MODULE__.Behaviour
+
+    @impl true
+    def f do
+        ...
+    end
+end
+```
+
+in configuration:
+
+```elixir
+config :mox_inject, :modules_with_behaviour_submodules, [X]
+```
+
+or, for example, an explicit behaviour can be provided for an existing module.
+
+```elixir
+defmodule ExternalBehaviour.PhoenixLiveViewJS do
+    @callback ...
+end
+```
+
+and in configuration:
+
+```elixir
+config :mox_inject, :explicit_behaviours, %{
+    Phoenix.LiveView.JS => ExternalBehaviour.PhoenixLiveViewJS
+}
+```
+
+to ensure that the mocking library can find the behaviour for the module.
+
 ## Installation
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `mox_inject` to your list of dependencies in `mix.exs`:
+The package can be installed by adding `mox_inject` to your list of dependencies in `mix.exs`:
 
 ```elixir
 def deps do
