@@ -31,11 +31,12 @@ defmodule MoxInject do
       end
   """
 
-  @modules_with_behaviour_submodules Application.compile_env!(
+  @modules_with_behaviour_submodules Application.compile_env(
                                        :mox_inject,
-                                       :modules_with_behaviour_submodules
+                                       :modules_with_behaviour_submodules,
+                                       []
                                      )
-  @explicit_behaviours Application.compile_env!(:mox_inject, :explicit_behaviours)
+  @explicit_behaviours Application.compile_env(:mox_inject, :explicit_behaviours, %{})
 
   @test_dependencies Application.compile_env(:mox_inject, :test_dependencies?, false)
 
