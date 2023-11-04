@@ -27,7 +27,7 @@ defmodule MoxInject.MixProject do
 
   def package do
     [
-      files: ["config", "lib", "mix.exs", "README.md"],
+      files: ["lib", "mix.exs", "README.md"],
       licenses: ["MIT"],
       links: %{"GitHub" => "https://github.com/tallarium/mox_inject"}
     ]
