@@ -9,7 +9,7 @@ defmodule MoxInject.MixProject do
       start_permanent: Mix.env() == :prod,
       deps: deps(),
       description: "Inject mock dependencies during test",
-      package: package(),
+      package: package()
     ]
   end
 
@@ -27,7 +27,7 @@ defmodule MoxInject.MixProject do
 
   def package do
     [
-      files: ["lib", "mix.exs", "README.md"],
+      files: ["config", "lib", "mix.exs", "README.md"],
       licenses: ["MIT"],
       links: %{"GitHub" => "https://github.com/tallarium/mox_inject"}
     ]
