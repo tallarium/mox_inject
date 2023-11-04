@@ -93,8 +93,7 @@ to ensure that the mocking library can find the behaviour for the module.
 
 ## Installation
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `mox_inject` to your list of dependencies in `mix.exs`:
+The package can be installed by adding `mox_inject` to your list of dependencies in `mix.exs`:
 
 ```elixir
 def deps do
